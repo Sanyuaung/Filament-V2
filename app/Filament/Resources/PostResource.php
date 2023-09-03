@@ -46,12 +46,18 @@ class PostResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('title')
+                    ->limit(30)
+                    ->tooltip(fn($record) : string => $record->title)
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('slug')
+                    ->limit(30)
+                    ->tooltip(fn($record) : string => $record->slug)
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('content')
+                    ->limit(30)
+                    ->tooltip(fn($record) : string => $record->content)
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('created_at')
