@@ -2,26 +2,25 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PostResource\Pages;
-use App\Filament\Resources\PostResource\RelationManagers;
-use App\Models\Post;
+use App\Filament\Resources\ProductResource\Pages;
+use App\Filament\Resources\ProductResource\RelationManagers;
+use App\Models\Product;
 use Filament\Forms;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class PostResource extends Resource
+class ProductResource extends Resource
 {
-    protected static ?string $model = Post::class;
+    protected static ?string $model = Product::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
@@ -29,15 +28,18 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('title')
+                TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                TextInput::make('slug')
+                TextInput::make('detail')
                     ->required()
                     ->maxLength(255),
-                Textarea::make('cpntect')
-                    ->required()
-                    ->maxLength(65535),
+                TextInput::make('price')
+                    ->numeric()
+                    ->required(),
+                TextInput::make('discount')
+                    ->numeric()
+                    ->required(),
             ]);
     }
 
@@ -45,40 +47,31 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title'),
-                TextColumn::make('slug'),
-                TextColumn::make('cpntect'),
+                TextColumn::make('name'),
+                TextColumn::make('detail'),
+                TextColumn::make('price'),
+                TextColumn::make('discount'),
                 TextColumn::make('created_at')
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->dateTime(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                ViewAction::make(),
                 EditAction::make(),
+                DeleteAction::make(),
             ])
             ->bulkActions([
                 DeleteBulkAction::make(),
             ]);
     }
     
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-    
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPosts::route('/'),
-            'create' => Pages\CreatePost::route('/create'),
-            'view' => Pages\ViewPost::route('/{record}'),
-            'edit' => Pages\EditPost::route('/{record}/edit'),
+            'index' => Pages\ManageProducts::route('/'),
         ];
     }    
 }
