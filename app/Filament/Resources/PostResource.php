@@ -35,7 +35,7 @@ class PostResource extends Resource
                 TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
-                Textarea::make('cpntect')
+                Textarea::make('content')
                     ->required()
                     ->maxLength(65535),
             ]);
@@ -45,12 +45,12 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title'),
-                TextColumn::make('slug'),
-                TextColumn::make('cpntect'),
+                TextColumn::make('title')->searchable(),
+                TextColumn::make('slug')->searchable(),
+                TextColumn::make('content')->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->dateTime(),
             ])
             ->filters([

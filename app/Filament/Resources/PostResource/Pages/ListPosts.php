@@ -9,7 +9,14 @@ use Filament\Resources\Pages\ListRecords;
 class ListPosts extends ListRecords
 {
     protected static string $resource = PostResource::class;
-
+    protected function isTablePaginationEnabled(): bool 
+    {
+        return true;
+    } 
+    protected function getTableRecordsPerPageSelectOptions(): array 
+    {
+        return [25, 50];
+    }
     protected function getActions(): array
     {
         return [
