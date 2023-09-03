@@ -48,29 +48,35 @@ class ProductResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->toggleable()
                     ->limit(30)
                     ->tooltip(fn($record) : string => $record->name)
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('detail')
+                    ->toggleable()
                     ->limit(30)
                     ->tooltip(fn($record) : string => $record->detail)
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('price')
+                    ->toggleable()
                     ->limit(30)
                     ->tooltip(fn($record) : string => $record->price)
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('discount')
+                    ->toggleable()
                     ->limit(30)
                     ->tooltip(fn($record) : string => $record->discount)
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('created_at')
+                    ->toggleable(isToggledHiddenByDefault : true)
                     ->sortable()
                     ->dateTime(),
                 TextColumn::make('updated_at')
+                    ->toggleable(isToggledHiddenByDefault : true)
                     ->sortable()
                     ->dateTime(),
             ])

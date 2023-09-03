@@ -46,24 +46,29 @@ class PostResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('title')
+                    ->toggleable()
                     ->limit(30)
                     ->tooltip(fn($record) : string => $record->title)
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('slug')
+                    ->toggleable()
                     ->limit(30)
                     ->tooltip(fn($record) : string => $record->slug)
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('content')
+                    ->toggleable()
                     ->limit(30)
                     ->tooltip(fn($record) : string => $record->content)
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('created_at')
+                    ->toggleable(isToggledHiddenByDefault : true)
                     ->sortable()
                     ->dateTime(),
                 TextColumn::make('updated_at')
+                    ->toggleable(isToggledHiddenByDefault : true)
                     ->sortable()
                     ->dateTime(),
             ])
