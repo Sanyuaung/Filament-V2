@@ -47,15 +47,26 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->searchable(),
-                TextColumn::make('detail')->searchable(),
-                TextColumn::make('price')->searchable(),
-                TextColumn::make('discount')->searchable(),
+                TextColumn::make('name')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('detail')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('price')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('discount')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('created_at')
+                    ->sortable()
                     ->dateTime(),
                 TextColumn::make('updated_at')
+                    ->sortable()
                     ->dateTime(),
             ])
+            ->defaultSort('name')
             ->filters([
                 //
             ])
